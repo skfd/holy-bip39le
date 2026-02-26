@@ -178,10 +178,12 @@ header h1 {
   background: linear-gradient(180deg, #1e1608 0%, #110e06 100%);
   color: var(--gold-mid);
   border: 1px solid var(--gold-dark);
-  padding: 0.28rem 0.55rem;
+  padding: 0.28rem 0.7rem;
   border-radius: 2px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 1rem;
+  font-family: var(--font-gothic);
+  line-height: 1.2;
   transition: background 0.12s, color 0.12s, border-color 0.12s;
   box-shadow: inset 0 1px 0 #ffffff08, 0 1px 3px #00000066;
 }

@@ -1,7 +1,7 @@
 // Sound effects via Web Audio API — starts muted
 
 let ctx = null;
-let muted = true;
+let muted = false;
 
 function ensureCtx() {
   if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();

@@ -11,7 +11,7 @@ export function setupControls(scanner, { onSpeedChange, onPlayStateChange }) {
 
   function updatePlayButton() {
     const state = scanner.getState();
-    btnPlay.textContent = state.paused ? '▶' : '⏸';
+    btnPlay.textContent = state.paused ? '▶' : '‖';
     onPlayStateChange?.(state);
   }
 
@@ -65,7 +65,7 @@ export function setupControls(scanner, { onSpeedChange, onPlayStateChange }) {
       case 'KeyM':
         e.preventDefault();
         const m = toggleMute();
-        document.getElementById('btn-mute').textContent = m ? '🔇' : '🔊';
+        document.getElementById('btn-mute').textContent = m ? 'ø' : '♫';
         break;
     }
   });

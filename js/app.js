@@ -40,7 +40,7 @@ async function init() {
   const btnMute = document.getElementById('btn-mute');
   btnMute.addEventListener('click', () => {
     const m = toggleMute();
-    btnMute.textContent = m ? '🔇' : '🔊';
+    btnMute.textContent = m ? 'ø' : '♫';
   });
 }
 

@@ -52,20 +52,6 @@ export function createOrb(words, wordEls, windowSize) {
   label.className = 'orb-label';
   label.textContent = `${windowSize}!`;
   orb.appendChild(label);
-
-  const tooltip = document.createElement('div');
-  tooltip.className = 'orb-tooltip';
-
-  const tipLabel = document.createElement('span');
-  tipLabel.className = 'phrase-label';
-  tipLabel.textContent = `${windowSize}-word phrase #${total}`;
-  tooltip.appendChild(tipLabel);
-
-  const phraseSpan = document.createElement('span');
-  phraseSpan.innerHTML = words.map(w => `<span class="phrase-word">${w}</span>`).join(' ');
-  tooltip.appendChild(phraseSpan);
-
-  orb.appendChild(tooltip);
   anchor.appendChild(orb);
   panel.appendChild(anchor);
 
