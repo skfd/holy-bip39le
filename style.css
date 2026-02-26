@@ -339,40 +339,25 @@ main {
   100% { opacity: 0.5; stroke-width: 1; }
 }
 
-/* ── Orb Container (floating on sides) ───────────────── */
-#orb-container {
-  position: fixed;
-  top: var(--header-h);
-  right: 0.8rem;
-  bottom: 1rem;
-  width: 3.8rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding-top: 0.5rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+/* ── Orb Anchor (inside text panel, scrolls with content) ── */
+.orb-anchor {
+  position: absolute;
+  left: calc(50% + 21rem + 1rem);
+  transform: translateY(-50%);
   z-index: 15;
   pointer-events: auto;
-}
-
-#orb-container::-webkit-scrollbar { width: 0; }
-
-#orb-count-badge {
-  display: none;
 }
 
 /* ── Orb ─────────────────────────────────────────────── */
 @keyframes orb-float {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-6px); }
+  50%      { transform: translateY(-7px); }
 }
 
 @keyframes orb-appear {
-  0%   { transform: scale(0); opacity: 0; }
-  60%  { transform: scale(1.3); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+  0%   { opacity: 0; transform: scale(0) translateY(0); }
+  60%  { opacity: 1; transform: scale(1.25) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .orb {
@@ -383,8 +368,7 @@ main {
   border-radius: 50%;
   cursor: pointer;
   position: relative;
-  animation: orb-appear 0.4s ease-out, orb-float 3s ease-in-out infinite;
-  animation-delay: 0s, 0.4s;
+  animation: orb-appear 0.4s ease-out forwards, orb-float var(--float-dur, 3s) ease-in-out infinite 0.4s;
   box-shadow: 0 0 12px var(--orb-12), inset 0 0 8px #ffffff44;
   background: radial-gradient(circle at 35% 35%, #e8fbff, var(--orb-12) 60%, #1070a0);
   display: flex;
@@ -413,36 +397,41 @@ main {
   right: calc(100% + 0.8rem);
   top: 50%;
   transform: translateY(-50%);
-  background: #1a1a28ee;
-  border: 1px solid #333355;
-  border-radius: 6px;
+  background: #1a1208ee;
+  border: 1px solid var(--gold-dark);
+  border-top-color: var(--gold-mid);
+  border-radius: 2px;
   padding: 0.6rem 0.8rem;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text);
-  line-height: 1.5;
-  white-space: nowrap;
+  line-height: 1.6;
   z-index: 20;
   pointer-events: none;
-  box-shadow: 0 4px 16px #00000088;
-  max-width: 20rem;
+  box-shadow: 0 4px 16px #00000099, inset 0 1px 0 #c8962a22;
+  max-width: 22rem;
   white-space: normal;
   word-break: break-word;
 }
 
-.orb:hover .orb-tooltip {
-  display: block;
-}
+.orb:hover .orb-tooltip { display: block; }
 
-.orb .orb-tooltip .phrase-word {
-  color: var(--bip39-hi);
-}
+.orb .orb-tooltip .phrase-word { color: var(--bip39-hi); }
 
 .orb .orb-tooltip .phrase-label {
-  color: var(--text-dim);
+  color: var(--gold-dark);
   font-size: 0.6rem;
   display: block;
   margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Orange border on words when their orb is hovered */
+#text-content .word.phrase-hover {
+  outline: 1px solid #e87020 !important;
+  box-shadow: 0 0 8px #e8702066 !important;
+  border-radius: 2px;
 }
 
 /* ── Intro Overlay ───────────────────────────────────── */

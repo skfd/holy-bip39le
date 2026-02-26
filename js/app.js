@@ -113,7 +113,7 @@ async function loadAndStart(filename) {
       drawLightning(wordEls, windowSize);
       playLightning();
       playChecksumValid(windowSize === 24);
-      createOrb(words, windowSize);
+      createOrb(words, wordEls, windowSize);
     },
 
     onRewind() {
