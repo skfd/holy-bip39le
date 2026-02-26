@@ -68,18 +68,131 @@ header::before {
   font-size: 0.7rem;
   color: var(--gold-dim);
   text-decoration: none;
+  background: none;
+  cursor: pointer;
   border: 1px solid var(--gold-dim);
   padding: 0.25rem 0.6rem;
   border-radius: 2px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-right: 0.4rem;
   transition: color 0.2s, border-color 0.2s;
 }
 .header-source-link:hover {
   color: var(--gold);
   border-color: var(--gold);
 }
+.header-right-links {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin-right: 0.4rem;
+}
+
+/* ── Credits modal ─────────────────────────────────────── */
+#credits-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#credits-overlay[hidden] { display: none; }
+
+.credits-box {
+  width: min(480px, 90vw);
+  max-height: 80vh;
+  background: linear-gradient(160deg, #1a1208 0%, #0d0d0d 100%);
+  border: 2px solid var(--gold-dim);
+  box-shadow: 0 0 40px #b8860b66, inset 0 0 30px #00000088;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.credits-scroll-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.credits-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 2rem 3rem;
+  animation: credits-roll 28s linear infinite;
+  animation-play-state: running;
+}
+.credits-scroll:hover { animation-play-state: paused; }
+
+@keyframes credits-roll {
+  0%   { transform: translateY(100%); }
+  100% { transform: translateY(-100%); }
+}
+
+.credits-title {
+  font-family: var(--font-gothic-deco);
+  font-size: 1.4rem;
+  color: var(--gold);
+  text-shadow: 0 0 16px var(--gold);
+  margin: 0 0 1.4rem;
+  letter-spacing: 0.12em;
+}
+.credits-section {
+  font-family: var(--font-gothic);
+  font-size: 0.85rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin: 1rem 0 0.3rem;
+}
+.credits-role {
+  font-family: var(--font-gothic);
+  font-size: 0.72rem;
+  color: #888;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0.8rem 0 0.15rem;
+}
+.credits-name {
+  font-family: var(--font-gothic);
+  font-size: 0.85rem;
+  color: #ccc;
+  margin: 0.1rem 0;
+}
+.credits-divider {
+  color: var(--gold-dim);
+  font-size: 1.1rem;
+  margin: 1.2rem 0 0.4rem;
+}
+.credits-fine {
+  font-family: var(--font-gothic);
+  font-size: 0.68rem;
+  color: #555;
+  font-style: italic;
+  margin-top: 1.5rem;
+}
+
+.credits-close {
+  font-family: var(--font-gothic);
+  font-size: 0.75rem;
+  color: var(--gold-dim);
+  background: none;
+  border: none;
+  border-top: 1px solid #333;
+  cursor: pointer;
+  padding: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.credits-close:hover { color: var(--gold); }
 
 .header-left { flex-shrink: 0; padding: 0 0.5rem; }
 

@@ -41,9 +41,46 @@
         <button id="btn-mute" title="Toggle sound (M)">♫</button>
       </div>
     </div>
-    <a class="header-source-link" href="https://github.com/skfd/holy-bip39le" target="_blank" rel="noopener" title="Source code on GitHub">Source Code</a>
+    <div class="header-right-links">
+      <a class="header-source-link" href="https://github.com/skfd/holy-bip39le" target="_blank" rel="noopener" title="Source code on GitHub">Source Code</a>
+      <button class="header-source-link" id="btn-credits" title="Credits">Credits</button>
+    </div>
     <div class="header-ornament header-ornament-right">❧</div>
   </header>
+
+  <div id="credits-overlay" hidden>
+    <div class="credits-box">
+      <div class="credits-scroll-wrap">
+        <div class="credits-scroll">
+          <p class="credits-title">Holy BIP39le</p>
+          <p class="credits-role">Concept &amp; Design</p>
+          <p class="credits-name">Skyfallsdown</p>
+          <p class="credits-role">Implementation</p>
+          <p class="credits-name">GitHub Copilot (Claude Sonnet)</p>
+          <p class="credits-role">Art Inspiration</p>
+          <p class="credits-name">Diablo Game Series by Blizzard Entertainment</p>
+          <div class="credits-divider">✦</div>
+          <p class="credits-section">Tomes Searched</p>
+          <p class="credits-name">Alice's Adventures in Wonderland — Lewis Carroll</p>
+          <p class="credits-name">A Christmas Carol — Charles Dickens</p>
+          <p class="credits-name">The Strange Case of Dr Jekyll &amp; Mr Hyde — R. L. Stevenson</p>
+          <p class="credits-name">Siddhartha — Hermann Hesse</p>
+          <p class="credits-name">The Time Machine — H. G. Wells</p>
+          <p class="credits-name">Hamlet — William Shakespeare</p>
+          <div class="credits-divider">✦</div>
+          <p class="credits-section">Libraries &amp; Tools</p>
+          <p class="credits-name">BIP39 English Wordlist — trezor/python-mnemonic</p>
+          <p class="credits-name">Web Crypto API — IETF / W3C</p>
+          <p class="credits-name">Web Audio API — W3C</p>
+          <p class="credits-name">Cinzel &amp; Cinzel Decorative — Google Fonts</p>
+          <p class="credits-name">Project Gutenberg — public domain texts</p>
+          <div class="credits-divider">✦</div>
+          <p class="credits-fine">No private keys were harmed in the making of this project.</p>
+        </div>
+      </div>
+      <button class="credits-close" id="btn-credits-close">✕ Close</button>
+    </div>
+  </div>
 
   <main>
     <section id="text-panel">
