@@ -359,6 +359,7 @@ main {
   line-height: 1.9;
   max-width: 42rem;
   margin: 0 auto;
+  color: var(--text-dim); /* plain text nodes (punctuation, spaces) match unscanned words */
 }
 
 #text-content .word {
