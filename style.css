@@ -63,6 +63,24 @@ header::before {
 
 .header-ornament-right { transform: scaleX(-1); }
 
+.header-source-link {
+  font-family: var(--font-gothic);
+  font-size: 0.7rem;
+  color: var(--gold-dim);
+  text-decoration: none;
+  border: 1px solid var(--gold-dim);
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: 0.4rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.header-source-link:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
 .header-left { flex-shrink: 0; padding: 0 0.5rem; }
 
 header h1 {
