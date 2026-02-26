@@ -59,12 +59,22 @@ export function renderTokens(container, tokens) {
   for (const tok of tokens) {
     const span = document.createElement('span');
     span.className = 'word';
-    span.textContent = tok.raw + tok.space;
-    if (tok.isBip39) {
-      span.classList.add('bip39');
-    }
+    if (tok.isBip39) span.classList.add('bip39');
     tok.el = span;
-    frag.appendChild(span);
+
+    // Split raw token into punctuation prefix, letters, punctuation suffix
+    // so that highlighting only applies to the actual word characters.
+    const m = tok.raw.match(/^([^a-zA-Z]*)([a-zA-Z](?:[a-zA-Z'-]*[a-zA-Z])?)([^a-zA-Z]*)$/);
+    if (m && m[2]) {
+      span.textContent = m[2];
+      if (m[1]) frag.appendChild(document.createTextNode(m[1]));
+      frag.appendChild(span);
+      frag.appendChild(document.createTextNode(m[3] + tok.space));
+    } else {
+      // Pure punctuation / number token — no word span needed but keep el
+      span.textContent = tok.raw + tok.space;
+      frag.appendChild(span);
+    }
   }
 
   container.appendChild(frag);
