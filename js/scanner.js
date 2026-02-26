@@ -140,7 +140,7 @@ export function createScanner(tokens, { onScanWord, onWindowCheck, onValidChecks
     finished = false;
     for (const tok of tokens) {
       tok.el.classList.remove('scanned', 'window-active', 'shine',
-        'phrase-12', 'phrase-24', 'phrase-both');
+        'phrase-12', 'phrase-12x', 'phrase-24', 'phrase-24x', 'phrase-mix');
     }
     onRewind?.();
   }

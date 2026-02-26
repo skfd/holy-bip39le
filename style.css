@@ -256,40 +256,61 @@ main {
   text-shadow: 0 0 6px #ffffff44;
 }
 
-/* Part of a valid 12-word phrase: blue, persistent pulse */
+/* ── Phrase word colors (Diablo item tier palette) ───── */
+
+/* 1× blue (magic item blue) */
 #text-content .word.phrase-12 {
-  color: var(--orb-12) !important;
-  background: #40c0f012 !important;
-  animation: phrase-pulse-12 3s ease-in-out infinite;
+  color: #5599ff !important;
+  background: #2244ff12 !important;
+  animation: pulse-12 3s ease-in-out infinite;
+}
+@keyframes pulse-12 {
+  0%,100% { text-shadow: 0 0 6px #4477ff88; }
+  50%     { text-shadow: 0 0 14px #66aaff, 0 0 28px #3366ff55; }
 }
 
-@keyframes phrase-pulse-12 {
-  0%, 100% { text-shadow: 0 0 6px #40c0f066; }
-  50%      { text-shadow: 0 0 12px #40c0f0bb, 0 0 20px #40c0f044; }
+/* 2× blue (deep sapphire) */
+#text-content .word.phrase-12x {
+  color: #2244cc !important;
+  background: #11228818 !important;
+  animation: pulse-12x 3s ease-in-out infinite;
+}
+@keyframes pulse-12x {
+  0%,100% { text-shadow: 0 0 8px #1133aa88; }
+  50%     { text-shadow: 0 0 18px #2255dd, 0 0 36px #1133aa44; }
 }
 
-/* Part of a valid 24-word phrase: gold, persistent pulse */
+/* 1× yellow (unique item gold) */
 #text-content .word.phrase-24 {
-  color: var(--orb-24) !important;
+  color: #f0c040 !important;
   background: #f0c04012 !important;
-  animation: phrase-pulse-24 3s ease-in-out infinite;
+  animation: pulse-24 3s ease-in-out infinite;
+}
+@keyframes pulse-24 {
+  0%,100% { text-shadow: 0 0 6px #c8962a88; }
+  50%     { text-shadow: 0 0 14px #f0c040, 0 0 28px #c8962a55; }
 }
 
-@keyframes phrase-pulse-24 {
-  0%, 100% { text-shadow: 0 0 6px #f0c04066; }
-  50%      { text-shadow: 0 0 12px #f0c040bb, 0 0 20px #f0c04044; }
+/* 2× yellow (burning orange, like Diablo set items) */
+#text-content .word.phrase-24x {
+  color: #ff7020 !important;
+  background: #ff601012 !important;
+  animation: pulse-24x 2.5s ease-in-out infinite;
+}
+@keyframes pulse-24x {
+  0%,100% { text-shadow: 0 0 8px #dd501088; }
+  50%     { text-shadow: 0 0 18px #ff8030, 0 0 36px #dd501055; }
 }
 
-/* Part of both: bright white, stronger mixed glow */
-#text-content .word.phrase-both {
-  color: #ffffff !important;
-  background: #ffffff14 !important;
-  animation: phrase-pulse-both 2s ease-in-out infinite;
+/* blue + yellow overlap (runeword purple) */
+#text-content .word.phrase-mix {
+  color: #c050f8 !important;
+  background: #8020cc12 !important;
+  animation: pulse-mix 2s ease-in-out infinite;
 }
-
-@keyframes phrase-pulse-both {
-  0%, 100% { text-shadow: 0 0 8px #40c0f077, 0 0 14px #f0c04077; }
-  50%      { text-shadow: 0 0 16px #40c0f0aa, 0 0 24px #f0c040aa, 0 0 36px #ffffff44; }
+@keyframes pulse-mix {
+  0%,100% { text-shadow: 0 0 8px #9030cc88; }
+  50%     { text-shadow: 0 0 20px #d060ff, 0 0 40px #8020cc66, 0 0 60px #5599ff22; }
 }
 
 /* ── Shine Animation (brief flash on discovery) ──────── */

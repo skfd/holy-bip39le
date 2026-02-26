@@ -63,23 +63,24 @@ async function loadAndStart(filename) {
 
   const textPanel = document.getElementById('text-panel');
 
-  // Track phrase membership: tokenIndex → Set of windowSizes
+  // Track phrase membership: tokenIndex → { c12: n, c24: n }
   const phraseMap = new Map();
 
   function applyPhraseClass(tokenIdx, windowSize) {
     const el = tokens[tokenIdx].el;
-    if (!phraseMap.has(tokenIdx)) phraseMap.set(tokenIdx, new Set());
-    phraseMap.get(tokenIdx).add(windowSize);
+    if (!phraseMap.has(tokenIdx)) phraseMap.set(tokenIdx, { c12: 0, c24: 0 });
+    const p = phraseMap.get(tokenIdx);
+    if (windowSize === 12) p.c12++; else p.c24++;
 
-    const sizes = phraseMap.get(tokenIdx);
-    el.classList.remove('shine', 'phrase-12', 'phrase-24', 'phrase-both');
-    if (sizes.has(12) && sizes.has(24)) {
-      el.classList.add('phrase-both');
-    } else if (sizes.has(12)) {
-      el.classList.add('phrase-12');
-    } else {
-      el.classList.add('phrase-24');
-    }
+    el.classList.remove('shine',
+      'phrase-12', 'phrase-12x', 'phrase-24', 'phrase-24x', 'phrase-mix');
+
+    const { c12, c24 } = p;
+    if (c12 > 0 && c24 > 0)       el.classList.add('phrase-mix');   // blue+yellow → purple
+    else if (c12 >= 2)             el.classList.add('phrase-12x');   // 2× blue → dark blue
+    else if (c12 === 1)            el.classList.add('phrase-12');    // 1× blue
+    else if (c24 >= 2)             el.classList.add('phrase-24x');   // 2× yellow → orange
+    else                           el.classList.add('phrase-24');    // 1× yellow
   }
 
   currentScanner = createScanner(tokens, {
