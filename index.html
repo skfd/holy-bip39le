@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>holy-bip39le</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1>holy-bip39le</h1>
+      <p class="subtitle">searching for seed phrases hidden in literature</p>
+    </div>
+    <div class="header-controls">
+      <select id="book-select" aria-label="Select a book">
+        <option value="">— select a book —</option>
+      </select>
+      <div class="transport">
+        <button id="btn-rewind" title="Rewind (R)">⏮</button>
+        <button id="btn-play" title="Play / Pause (Space)">▶</button>
+        <button id="btn-slower" title="Slower (←)">⏪</button>
+        <span id="speed-display">1×</span>
+        <button id="btn-faster" title="Faster (→)">⏩</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="text-panel">
+      <div id="text-content" aria-live="polite"></div>
+    </section>
+    <aside id="orb-panel">
+      <div class="orb-header">
+        <span class="orb-title">Phrases Found</span>
+        <span id="orb-count">0</span>
+      </div>
+      <div id="orb-container"></div>
+    </aside>
+  </main>
+
+  <div id="intro-overlay">
+    <div class="intro-box">
+      <h2>holy-bip39le</h2>
+      <p>Has anyone ever opened their favourite book, picked twelve words in a row,
+         and unknowingly created a Bitcoin wallet?</p>
+      <p>This visualization scans classic literature word by word, searching for
+         sequences that form valid BIP39 seed phrases.</p>
+      <button id="btn-start">Select a book to begin</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
