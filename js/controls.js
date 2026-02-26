@@ -1,5 +1,7 @@
 // Playback controls and keyboard hotkeys
 
+import { toggleMute, isMuted } from './sound.js';
+
 export function setupControls(scanner, { onSpeedChange, onPlayStateChange }) {
   const btnPlay = document.getElementById('btn-play');
   const btnRewind = document.getElementById('btn-rewind');
@@ -59,6 +61,11 @@ export function setupControls(scanner, { onSpeedChange, onPlayStateChange }) {
         e.preventDefault();
         scanner.rewind();
         updatePlayButton();
+        break;
+      case 'KeyM':
+        e.preventDefault();
+        const m = toggleMute();
+        document.getElementById('btn-mute').textContent = m ? '🔇' : '🔊';
         break;
     }
   });

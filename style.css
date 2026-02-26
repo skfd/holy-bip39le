@@ -12,8 +12,8 @@
   --bip39-hi: #e8d44d;
   --bip39-bg: #e8d44d18;
   --shine-color: #fffbe8;
-  --orb-12: #f0c040;
-  --orb-24: #40c0f0;
+  --orb-12: #40c0f0;
+  --orb-24: #f0c040;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   --font-serif: 'Georgia', 'Times New Roman', serif;
 }
@@ -54,6 +54,46 @@ header h1 {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.resource-counter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.resource-counter .res-item {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.2rem 0.5rem;
+  background: #1a1a24;
+  border: 1px solid #333344;
+  border-radius: 4px;
+}
+
+.resource-counter .res-orb {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.resource-counter .res-orb.res-12 {
+  background: radial-gradient(circle at 35% 35%, #e8fbff, var(--orb-12));
+  box-shadow: 0 0 4px var(--orb-12);
+}
+
+.resource-counter .res-orb.res-24 {
+  background: radial-gradient(circle at 35% 35%, #fffbe8, var(--orb-24));
+  box-shadow: 0 0 4px var(--orb-24);
+}
+
+.resource-counter .res-num {
+  color: var(--text);
+  font-weight: bold;
 }
 
 @keyframes select-pulse {
@@ -107,12 +147,13 @@ header h1 {
 
 /* ── Main Layout ─────────────────────────────────────── */
 main {
-  display: flex;
+  position: relative;
   height: calc(100vh - 3rem);
 }
 
 #text-panel {
-  flex: 1;
+  position: relative;
+  height: 100%;
   overflow-y: auto;
   padding: 2rem 3rem;
   scroll-behavior: smooth;
@@ -121,7 +162,7 @@ main {
 #text-content {
   font-size: 1.05rem;
   line-height: 1.9;
-  max-width: 52rem;
+  max-width: 42rem;
   margin: 0 auto;
 }
 
@@ -190,48 +231,59 @@ main {
   background: #e8d44d22;
 }
 
-/* ── Orb Panel ───────────────────────────────────────── */
-#orb-panel {
-  width: 15rem;
-  background: var(--bg-aside);
-  border-left: 1px solid #222233;
-  padding: 1rem;
-  overflow-y: auto;
+/* ── Lightning SVG ────────────────────────────────────── */
+#lightning-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+#lightning-svg .lightning-bolt {
+  fill: none;
+  stroke: var(--orb-12);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 3px var(--orb-12));
+  opacity: 0.6;
+}
+
+#lightning-svg .lightning-bolt.bolt-24 {
+  stroke: var(--orb-24);
+  filter: drop-shadow(0 0 3px var(--orb-24));
+}
+
+@keyframes lightning-flash {
+  0%   { opacity: 0; stroke-width: 1.5; }
+  20%  { opacity: 0.8; stroke-width: 1; }
+  100% { opacity: 0.5; stroke-width: 1; }
+}
+
+/* ── Orb Container (floating on sides) ───────────────── */
+#orb-container {
+  position: fixed;
+  top: 3.8rem;
+  right: 0.8rem;
+  bottom: 1rem;
+  width: 3.8rem;
   display: flex;
   flex-direction: column;
-}
-
-.orb-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #222233;
-}
-
-.orb-title {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-#orb-count {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  color: var(--accent);
-  font-weight: bold;
-}
-
-#orb-container {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
   gap: 0.6rem;
-  padding-top: 0.3rem;
+  padding-top: 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+#orb-container::-webkit-scrollbar { width: 0; }
+
+#orb-count-badge {
+  display: none;
 }
 
 /* ── Orb ─────────────────────────────────────────────── */
@@ -249,18 +301,33 @@ main {
 .orb {
   width: 2.4rem;
   height: 2.4rem;
+  min-width: 2.4rem;
+  min-height: 2.4rem;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
   animation: orb-appear 0.4s ease-out, orb-float 3s ease-in-out infinite;
   animation-delay: 0s, 0.4s;
   box-shadow: 0 0 12px var(--orb-12), inset 0 0 8px #ffffff44;
-  background: radial-gradient(circle at 35% 35%, #fffbe8, var(--orb-12) 60%, #a07010);
+  background: radial-gradient(circle at 35% 35%, #e8fbff, var(--orb-12) 60%, #1070a0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb .orb-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: bold;
+  color: #ffffffcc;
+  text-shadow: 0 0 4px #00000088;
+  pointer-events: none;
+  line-height: 1;
 }
 
 .orb.orb-24 {
   box-shadow: 0 0 12px var(--orb-24), inset 0 0 8px #ffffff44;
-  background: radial-gradient(circle at 35% 35%, #e8fbff, var(--orb-24) 60%, #1070a0);
+  background: radial-gradient(circle at 35% 35%, #fffbe8, var(--orb-24) 60%, #a07010);
 }
 
 .orb .orb-tooltip {
@@ -269,7 +336,7 @@ main {
   right: calc(100% + 0.8rem);
   top: 50%;
   transform: translateY(-50%);
-  background: #1a1a28;
+  background: #1a1a28ee;
   border: 1px solid #333355;
   border-radius: 6px;
   padding: 0.6rem 0.8rem;
@@ -281,6 +348,9 @@ main {
   z-index: 20;
   pointer-events: none;
   box-shadow: 0 4px 16px #00000088;
+  max-width: 20rem;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .orb:hover .orb-tooltip {

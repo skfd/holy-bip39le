@@ -13,6 +13,16 @@
       <p class="subtitle">searching for seed phrases hidden in literature</p>
     </div>
     <div class="header-controls">
+      <div class="resource-counter">
+        <div class="res-item">
+          <span class="res-orb res-12"></span>
+          <span class="res-num" id="count-12">0</span>
+        </div>
+        <div class="res-item">
+          <span class="res-orb res-24"></span>
+          <span class="res-num" id="count-24">0</span>
+        </div>
+      </div>
       <select id="book-select" aria-label="Select a book">
         <option value="">— select a book —</option>
       </select>
@@ -22,6 +32,7 @@
         <button id="btn-slower" title="Slower (←)">⏪</button>
         <span id="speed-display">1×</span>
         <button id="btn-faster" title="Faster (→)">⏩</button>
+        <button id="btn-mute" title="Toggle sound (M)">🔇</button>
       </div>
     </div>
   </header>
@@ -29,14 +40,10 @@
   <main>
     <section id="text-panel">
       <div id="text-content" aria-live="polite"></div>
+      <svg id="lightning-svg"></svg>
     </section>
-    <aside id="orb-panel">
-      <div class="orb-header">
-        <span class="orb-title">Phrases Found</span>
-        <span id="orb-count">0</span>
-      </div>
-      <div id="orb-container"></div>
-    </aside>
+    <div id="orb-container"></div>
+    <div id="orb-count-badge"><span id="orb-count">0</span> found</div>
   </main>
 
   <div id="intro-overlay">
