@@ -7,7 +7,7 @@ import { validateChecksum } from './bip39.js';
  * The scanner slides a window over only the BIP39 words,
  * checking each window for valid checksums.
  */
-export function createScanner(tokens, { onScanWord, onWindowCheck, onValidChecksum }) {
+export function createScanner(tokens, { onScanWord, onWindowCheck, onValidChecksum, onRewind }) {
   // Build index of BIP39 token positions
   const bip39Indices = [];
   for (let i = 0; i < tokens.length; i++) {
@@ -139,8 +139,10 @@ export function createScanner(tokens, { onScanWord, onWindowCheck, onValidChecks
     scanTokenIdx = 0;
     finished = false;
     for (const tok of tokens) {
-      tok.el.classList.remove('scanned', 'window-active', 'shine', 'shine-persist');
+      tok.el.classList.remove('scanned', 'window-active', 'shine',
+        'phrase-12', 'phrase-24', 'phrase-both');
     }
+    onRewind?.();
   }
 
   function getState() {

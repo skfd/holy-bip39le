@@ -168,36 +168,52 @@ main {
 
 #text-content .word {
   display: inline;
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.3s, background 0.3s, text-shadow 0.3s;
   border-radius: 2px;
   padding: 0 1px;
+  color: var(--text-dim); /* unscanned: dim */
 }
 
-#text-content .word.dimmed {
-  color: var(--text-dim);
-}
-
-#text-content .word.bip39 {
-  color: var(--bip39-hi);
-  background: var(--bip39-bg);
-}
-
+/* Scanned non-BIP39 words: grey */
 #text-content .word.scanned {
-  color: var(--text);
+  color: #3a3a4a;
 }
 
+/* Scanned BIP39 words not yet in a phrase: white */
 #text-content .word.scanned.bip39 {
-  color: var(--bip39-hi);
-  background: var(--bip39-bg);
+  color: #e8e8f0;
+  background: none;
 }
 
+/* Current scan window highlight */
 #text-content .word.window-active {
   color: #fff;
-  background: #e8d44d33;
-  text-shadow: 0 0 6px var(--accent-glow);
+  background: #ffffff18;
+  text-shadow: 0 0 6px #ffffff44;
 }
 
-/* ── Shine Animation (Diablo-style) ──────────────────── */
+/* Part of a valid 12-word phrase: blue */
+#text-content .word.phrase-12 {
+  color: var(--orb-12);
+  background: #40c0f015;
+  text-shadow: 0 0 8px #40c0f066;
+}
+
+/* Part of a valid 24-word phrase: gold */
+#text-content .word.phrase-24 {
+  color: var(--orb-24);
+  background: #f0c04015;
+  text-shadow: 0 0 8px #f0c04066;
+}
+
+/* Part of both phrase types: bright white with mixed glow */
+#text-content .word.phrase-both {
+  color: #ffffff;
+  background: #ffffff18;
+  text-shadow: 0 0 10px #40c0f088, 0 0 16px #f0c04088, 0 0 24px #ffffff44;
+}
+
+/* ── Shine Animation (brief flash on discovery) ──────── */
 @keyframes shine-sweep {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -205,30 +221,14 @@ main {
 
 @keyframes shine-glow {
   0%   { text-shadow: 0 0 4px var(--accent-glow); }
-  50%  { text-shadow: 0 0 18px var(--shine-color), 0 0 40px var(--accent-glow); }
+  50%  { text-shadow: 0 0 24px #fff, 0 0 48px var(--accent-glow); }
   100% { text-shadow: 0 0 4px var(--accent-glow); }
 }
 
 #text-content .word.shine {
-  color: #fff;
-  background: linear-gradient(
-    90deg,
-    var(--bip39-bg) 0%,
-    var(--shine-color) 45%,
-    var(--shine-color) 55%,
-    var(--bip39-bg) 100%
-  );
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine-sweep 1s ease-in-out, shine-glow 1s ease-in-out;
-}
-
-#text-content .word.shine-persist {
-  color: var(--shine-color);
-  text-shadow: 0 0 8px var(--accent-glow);
-  background: #e8d44d22;
+  color: #fff !important;
+  text-shadow: 0 0 24px #fff, 0 0 48px var(--accent-glow) !important;
+  animation: shine-glow 0.8s ease-in-out;
 }
 
 /* ── Lightning SVG ────────────────────────────────────── */

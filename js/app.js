@@ -63,10 +63,28 @@ async function loadAndStart(filename) {
 
   const textPanel = document.getElementById('text-panel');
 
+  // Track phrase membership: tokenIndex → Set of windowSizes
+  const phraseMap = new Map();
+
+  function applyPhraseClass(tokenIdx, windowSize) {
+    const el = tokens[tokenIdx].el;
+    if (!phraseMap.has(tokenIdx)) phraseMap.set(tokenIdx, new Set());
+    phraseMap.get(tokenIdx).add(windowSize);
+
+    const sizes = phraseMap.get(tokenIdx);
+    el.classList.remove('shine', 'phrase-12', 'phrase-24', 'phrase-both');
+    if (sizes.has(12) && sizes.has(24)) {
+      el.classList.add('phrase-both');
+    } else if (sizes.has(12)) {
+      el.classList.add('phrase-12');
+    } else {
+      el.classList.add('phrase-24');
+    }
+  }
+
   currentScanner = createScanner(tokens, {
     onScanWord(tokenIdx, el) {
       playScanTick();
-      // Auto-scroll
       const panelRect = textPanel.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
       if (elRect.top > panelRect.top + panelRect.height * 0.6) {
@@ -77,27 +95,31 @@ async function loadAndStart(filename) {
     onWindowCheck(windowIndices, windowSize) {},
 
     onValidChecksum(windowIndices, words, windowSize) {
-      // Shine animation
       const wordEls = [];
       for (const idx of windowIndices) {
-        const el = tokens[idx].el;
-        el.classList.add('shine');
-        el.addEventListener('animationend', () => {
-          el.classList.remove('shine');
-          el.classList.add('shine-persist');
-        }, { once: true });
-        wordEls.push(el);
+        // Brief flash
+        tokens[idx].el.classList.add('shine');
+        wordEls.push(tokens[idx].el);
       }
 
-      // Lightning bolts connecting the words
+      // After flash, settle into phrase color
+      setTimeout(() => {
+        for (const idx of windowIndices) {
+          tokens[idx].el.classList.remove('shine');
+          applyPhraseClass(idx, windowSize);
+        }
+      }, 850);
+
       drawLightning(wordEls, windowSize);
       playLightning();
-
-      // Sound
       playChecksumValid(windowSize === 24);
-
-      // Orb
       createOrb(words, windowSize);
+    },
+
+    onRewind() {
+      phraseMap.clear();
+      clearLightning();
+      resetOrbs();
     },
   });
 
