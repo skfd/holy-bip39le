@@ -667,3 +667,121 @@ main {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #333344; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #444466; }
+
+/* ── Mobile Responsive ──────────────────────────────── */
+@media (max-width: 640px) {
+  /* Switch to flex-column so main fills exactly the space below the header,
+     regardless of how tall the header grows when controls wrap. */
+  html, body {
+    height: 100vh;
+    height: 100dvh; /* respect mobile browser chrome */
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+    height: auto;
+    overflow: hidden;
+  }
+
+  header {
+    height: auto;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    padding: 0.35rem 0.5rem;
+    row-gap: 0.2rem;
+  }
+
+  /* hide purely decorative / secondary elements */
+  .header-ornament,
+  .header-center-divider,
+  .header-sep,
+  .subtitle {
+    display: none;
+  }
+
+  /* row 1: title (left) + links (right) */
+  .header-left {
+    order: 1;
+    flex: 1;
+    padding: 0;
+  }
+
+  .header-right-links {
+    order: 2;
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+
+  /* row 2: all controls, centered */
+  .header-controls {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .resource-counter .res-item {
+    padding: 0.15rem 0.3rem;
+  }
+
+  #book-select {
+    max-width: 8rem;
+    font-size: 0.65rem;
+    padding: 0.22rem 0.35rem;
+  }
+
+  .transport {
+    gap: 0.15rem;
+  }
+
+  .transport button {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  #speed-display {
+    min-width: 1.8rem;
+    font-size: 0.75rem;
+  }
+
+  /* reduce side padding in the reading area */
+  #text-panel {
+    padding: 1rem 0.75rem;
+  }
+
+  /* orbs: anchor to right edge instead of off-screen right of text column */
+  .orb-anchor {
+    left: auto;
+    right: 0.5rem;
+  }
+
+  /* tooltip: open to the left of the orb (orb is at right edge) */
+  .orb .orb-tooltip {
+    right: calc(100% + 0.6rem);
+    left: auto;
+    max-width: min(16rem, calc(100vw - 4rem));
+  }
+
+  /* intro box: constrain to viewport width */
+  .intro-box {
+    width: calc(100vw - 2rem);
+    padding: 2rem 1.2rem;
+  }
+}
+
+/* ── Very small phones (≤400px) ─────────────────────── */
+@media (max-width: 400px) {
+  .header-source-link {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .transport button {
+    padding: 0.18rem 0.3rem;
+    font-size: 0.85rem;
+  }
+}
